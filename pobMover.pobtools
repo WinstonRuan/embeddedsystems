@@ -1,9 +1,14 @@
 # pobtools project
 pobtools.version=4
 target.name=./pobMover.hex
-sources.number=1
+sources.number=2
 sources.0=./pobMover.c
+sources.1=./pattern.h
 bmps.number=0
-patterns.number=0
+patterns.number=4
+patterns.0=./patterns/circle.bmp
+patterns.1=./patterns/cross.bmp
+patterns.2=./patterns/tower.bmp
+patterns.3=./patterns/triangle.bmp
 sdk=pobeye2
 lang=C

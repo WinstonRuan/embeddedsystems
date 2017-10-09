@@ -4,7 +4,8 @@ Timing methods
  */
 
 #include <pob-eye.h>
-#include "pattern.h"	//dictionnary of forms
+#include "pattern.h"	//dictionary of forms
+#include "pad.h"
 
 //Function to initialize the POB-PROTO board
 void InitPobProto (void)
@@ -34,6 +35,8 @@ int main(void)
 	InitPobProto();
 	UInt8 *FrameFromCam;			//Struct to get the RGB components 
 	Form  ListOfForm[MAX_OF_FORM];	//array used to save the ID of the forms which are recognized
+	// Number of form 
+	Int16 Nb_Identify=0 ;
 	
 	// Get the pointer of the red,green and blue video buffer
 	FrameFromCam = GetRGBFrame();
@@ -63,20 +66,21 @@ int main(void)
 				// Try to identify the forms and make a list of it
 				Nb_Identify=IdentifyForm(FrameFromCam,ListOfForm,pattern);
 				
+				int i;
 				//parses Nb_Identify for the right symbol
 				for(i=0; i<Nb_Identify; i++)
 				{
 					switch(ListOfForm[i].id)
 					{
 						//Cases that tries to get matched
-						case IDP_0_Cross:
-							symbol =1;
-							break;
-						case IDP_1_Spade:
+						case IDP_CROSS:
 							symbol =2;
 							break;
-						case IDP_2_King:
+						case IDP_TOWER:
 							symbol =3;
+							break;
+						case IDP_TRIANGLE:
+							symbol =4;
 							break;
 						default:
 						break;
@@ -91,11 +95,11 @@ int main(void)
 						MoveBot(RUN);
 						break;
 					case 2:
-						MoveBot(Left);
+						MoveBot(LEFT);
 						break;
 						
 					case 3:
-						MoveBot(Right);
+						MoveBot(RIGHT);
 						break;
 					default:
 					break;
@@ -103,7 +107,9 @@ int main(void)
 					
 				}
 			case 30:
-			case 100:	
+				break;
+			case 200:	
+				break;
 		}	
 	}
 	return 0;

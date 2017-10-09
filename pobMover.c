@@ -103,18 +103,13 @@ int main(void)
 					
 				}
 			case 30:
-			case 100:
-			
-		}
-			
-		
+			case 100:	
+		}	
 	}
-
-	
-
-
 	return 0;
 }
+
+
 void MoveBot(UInt8 Way)
 {
 	SetPortD(Way);

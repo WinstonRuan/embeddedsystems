@@ -1,0 +1,12 @@
+# pobtools project
+pobtools.version=4
+target.name=./pob-bot-demo.hex
+sources.number=5
+sources.0=./main.c
+sources.1=./menu.c
+sources.2=./pad.c
+sources.3=./pad.h
+sources.4=./menu.h
+bmps.number=0
+patterns.number=0
+sdk=pobeye2

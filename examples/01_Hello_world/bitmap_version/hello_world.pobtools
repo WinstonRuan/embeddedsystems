@@ -1,0 +1,10 @@
+# pobtools project
+pobtools.version=4
+target.name=./Hello_World.hex
+sources.number=1
+sources.0=./Hello_world.c
+bmps.number=1
+bmps.0=./bitmap/Hello_world.bmp
+patterns.number=0
+sdk=pobeye2
+lang=C

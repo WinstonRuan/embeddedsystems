@@ -1,0 +1,22 @@
+# pobtools project
+pobtools.version=4
+target.name=./double_screen.hex
+sources.number=1
+sources.0=./double_screen.c
+bmps.number=8
+bmps.0=./bitmap/0_cross.bmp
+bmps.1=./bitmap/1_BigA.bmp
+bmps.2=./bitmap/2_king.bmp
+bmps.3=./bitmap/3_tower.bmp
+bmps.4=./bitmap/4_trefle.bmp
+bmps.5=./bitmap/5_triangle.bmp
+bmps.6=./bitmap/7_frame.bmp
+bmps.7=./bitmap/8_little_frame.bmp
+patterns.number=6
+patterns.0=./pattern/0_cross.bmp
+patterns.1=./pattern/1_BigA.bmp
+patterns.2=./pattern/2_king.bmp
+patterns.3=./pattern/3_tower.bmp
+patterns.4=./pattern/4_trefle.bmp
+patterns.5=./pattern/5_triangle.bmp
+sdk=pobeye2

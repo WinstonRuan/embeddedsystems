@@ -1,0 +1,8 @@
+# pobtools project
+pobtools.version=4
+target.name=./Ping_Pong.hex
+sources.number=1
+sources.0=./ping_pong.c
+bmps.number=0
+patterns.number=0
+sdk=pobeye2

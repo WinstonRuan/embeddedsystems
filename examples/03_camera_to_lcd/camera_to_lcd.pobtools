@@ -1,0 +1,8 @@
+# pobtools project
+pobtools.version=4
+target.name=./Camera_to_LCD.hex
+sources.number=1
+sources.0=./camera_to_lcd.c
+bmps.number=0
+patterns.number=0
+sdk=pobeye2

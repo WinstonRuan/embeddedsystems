@@ -1,0 +1,11 @@
+# pobtools project
+pobtools.version=4
+target.name=./rgbandservo_pobeye2.hex
+sources.number=3
+sources.0=./main.c
+sources.1=./communication.c
+sources.2=./communication.h
+bmps.number=0
+patterns.number=0
+sdk=pobeye2
+lang=C

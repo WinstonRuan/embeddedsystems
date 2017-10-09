@@ -1,0 +1,125 @@
+Archive member included because of file (symbol)
+
+C:/Program Files/POB-Technology/PobTools-BETA\sdk\pobeye2\libpob2.a(init.o)
+                              ./ping_pong.o (InitPobeye2)
+C:/Program Files/POB-Technology/PobTools-BETA\sdk\pobeye2\libpob2.a(uart0.o)
+                              ./ping_pong.o (SendByteToUART0)
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+flash            0x00000000         0x0001e000
+ram              0x40000000         0x00010000
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+LOAD ./ping_pong.o
+LOAD c:/yagarto/bin/../lib/gcc/arm-elf/4.4.1/../../../../arm-elf/lib/interwork\libc.a
+LOAD c:/yagarto/bin/../lib/gcc/arm-elf/4.4.1/../../../../arm-elf/lib/interwork\libm.a
+LOAD c:/yagarto/bin/../lib/gcc/arm-elf/4.4.1/interwork\libgcc.a
+LOAD C:/Program Files/POB-Technology/PobTools-BETA\sdk\pobeye2\boot.o
+LOAD C:/Program Files/POB-Technology/PobTools-BETA\sdk\pobeye2\libpob2.a
+START GROUP
+LOAD c:/yagarto/bin/../lib/gcc/arm-elf/4.4.1/interwork\libgcc.a
+LOAD c:/yagarto/bin/../lib/gcc/arm-elf/4.4.1/../../../../arm-elf/lib/interwork\libc.a
+END GROUP
+                0x4000fffc                __stack_end__ = 0x4000fffc
+                0x00000000                . = 0x0
+
+startup         0x00000000       0x48
+ *(.startup)
+ .startup       0x00000000       0x48 C:/Program Files/POB-Technology/PobTools-BETA\sdk\pobeye2\boot.o
+
+prog            0x00000048      0x738
+ *(.text)
+ .text          0x00000048       0x20 ./ping_pong.o
+                0x00000048                main
+ .text          0x00000068       0xb8 C:/Program Files/POB-Technology/PobTools-BETA\sdk\pobeye2\boot.o
+                0x00000068                start
+                0x00000104                endless_loop
+ .text          0x00000120      0x104 C:/Program Files/POB-Technology/PobTools-BETA\sdk\pobeye2\libpob2.a(init.o)
+                0x00000214                intr_swi
+                0x00000120                InitPobeye2
+                0x00000210                intr_undefined
+                0x00000220                intr_fiq
+                0x0000021c                intr_dabort
+                0x00000218                intr_pabort
+ .text          0x00000224      0x55c C:/Program Files/POB-Technology/PobTools-BETA\sdk\pobeye2\libpob2.a(uart0.o)
+                0x00000508                InitUART0
+                0x00000224                SetUART0Configuration
+                0x00000428                SendByteToUART0
+                0x00000488                GetByteFromUART0
+                0x000004d0                GetBufferFromUART0
+                0x000004ac                GetByteFromUART0NoWait
+                0x00000450                SendBufferToUART0
+ *(.rodata)
+ *(.rodata*)
+ *(.glue_7)
+ .glue_7        0x00000780        0x0 ./ping_pong.o
+ .glue_7        0x00000780        0x0 C:/Program Files/POB-Technology/PobTools-BETA\sdk\pobeye2\boot.o
+ .glue_7        0x00000780        0x0 C:/Program Files/POB-Technology/PobTools-BETA\sdk\pobeye2\libpob2.a(init.o)
+ .glue_7        0x00000780        0x0 C:/Program Files/POB-Technology/PobTools-BETA\sdk\pobeye2\libpob2.a(uart0.o)
+ *(.glue_7t)
+ .glue_7t       0x00000780        0x0 ./ping_pong.o
+ .glue_7t       0x00000780        0x0 C:/Program Files/POB-Technology/PobTools-BETA\sdk\pobeye2\boot.o
+ .glue_7t       0x00000780        0x0 C:/Program Files/POB-Technology/PobTools-BETA\sdk\pobeye2\libpob2.a(init.o)
+ .glue_7t       0x00000780        0x0 C:/Program Files/POB-Technology/PobTools-BETA\sdk\pobeye2\libpob2.a(uart0.o)
+
+.vfp11_veneer   0x00000000        0x0
+ .vfp11_veneer  0x00000000        0x0 ./ping_pong.o
+ .vfp11_veneer  0x00000000        0x0 C:/Program Files/POB-Technology/PobTools-BETA\sdk\pobeye2\boot.o
+ .vfp11_veneer  0x00000000        0x0 C:/Program Files/POB-Technology/PobTools-BETA\sdk\pobeye2\libpob2.a(init.o)
+ .vfp11_veneer  0x00000000        0x0 C:/Program Files/POB-Technology/PobTools-BETA\sdk\pobeye2\libpob2.a(uart0.o)
+
+.v4_bx          0x00000000        0x0
+ .v4_bx         0x00000000        0x0 ./ping_pong.o
+ .v4_bx         0x00000000        0x0 C:/Program Files/POB-Technology/PobTools-BETA\sdk\pobeye2\boot.o
+ .v4_bx         0x00000000        0x0 C:/Program Files/POB-Technology/PobTools-BETA\sdk\pobeye2\libpob2.a(init.o)
+ .v4_bx         0x00000000        0x0 C:/Program Files/POB-Technology/PobTools-BETA\sdk\pobeye2\libpob2.a(uart0.o)
+
+.eh_frame
+ *(.eh_frame)
+                0x00000000                __end_of_text__ = .
+
+.data           0x40000000        0x0 load address 0x00000780
+                0x40000000                __data_beg__ = .
+                0x00000780                __data_beg_src__ = __end_of_text__
+ *(.data)
+ .data          0x40000000        0x0 ./ping_pong.o
+ .data          0x40000000        0x0 C:/Program Files/POB-Technology/PobTools-BETA\sdk\pobeye2\boot.o
+ .data          0x40000000        0x0 C:/Program Files/POB-Technology/PobTools-BETA\sdk\pobeye2\libpob2.a(init.o)
+ .data          0x40000000        0x0 C:/Program Files/POB-Technology/PobTools-BETA\sdk\pobeye2\libpob2.a(uart0.o)
+                0x40000000                __data_end__ = .
+
+.bss            0x40000000        0x0
+                0x40000000                __bss_beg__ = .
+ *(.bss)
+ .bss           0x40000000        0x0 ./ping_pong.o
+ .bss           0x40000000        0x0 C:/Program Files/POB-Technology/PobTools-BETA\sdk\pobeye2\boot.o
+ .bss           0x40000000        0x0 C:/Program Files/POB-Technology/PobTools-BETA\sdk\pobeye2\libpob2.a(init.o)
+ .bss           0x40000000        0x0 C:/Program Files/POB-Technology/PobTools-BETA\sdk\pobeye2\libpob2.a(uart0.o)
+                0x40000000                . = ALIGN (0x4)
+                0x40000000                . = ALIGN (0x4)
+                0x40000000                _end = .
+                0x40000000                _bss_end__ = .
+                0x40000000                __bss_end__ = .
+                0x40000000                __end__ = .
+                0x40000000                PROVIDE (end, .)
+OUTPUT(./Ping_Pong.elf elf32-littlearm)
+
+.comment        0x00000000       0x36
+ .comment       0x00000000       0x12 ./ping_pong.o
+ .comment       0x00000012       0x12 C:/Program Files/POB-Technology/PobTools-BETA\sdk\pobeye2\libpob2.a(init.o)
+ .comment       0x00000024       0x12 C:/Program Files/POB-Technology/PobTools-BETA\sdk\pobeye2\libpob2.a(uart0.o)
+
+.ARM.attributes
+                0x00000000       0x10
+ .ARM.attributes
+                0x00000000       0x10 ./ping_pong.o
+ .ARM.attributes
+                0x00000010       0x10 C:/Program Files/POB-Technology/PobTools-BETA\sdk\pobeye2\boot.o
+ .ARM.attributes
+                0x00000020       0x10 C:/Program Files/POB-Technology/PobTools-BETA\sdk\pobeye2\libpob2.a(init.o)
+ .ARM.attributes
+                0x00000030       0x10 C:/Program Files/POB-Technology/PobTools-BETA\sdk\pobeye2\libpob2.a(uart0.o)

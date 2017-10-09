@@ -1,0 +1,8 @@
+# pobtools project
+pobtools.version=4
+target.name=./Init_proto.hex
+sources.number=1
+sources.0=./init_proto.c
+bmps.number=0
+patterns.number=0
+sdk=pobeye2

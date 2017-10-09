@@ -1,0 +1,13 @@
+# pobtools project
+pobtools.version=4
+target.name=./dual-bot-demo.hex
+sources.number=5
+sources.0=./sources/main.c
+sources.1=./sources/menu.c
+sources.2=./sources/menu.h
+sources.3=./sources/pad.c
+sources.4=./sources/pad.h
+bmps.number=0
+patterns.number=0
+sdk=pobeye2
+lang=C

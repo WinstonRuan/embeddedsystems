@@ -1,0 +1,11 @@
+# pobtools project
+pobtools.version=4
+target.name=./move_head_bot.hex
+sources.number=3
+sources.0=./move_head_bot.c
+sources.1=./pad.h
+sources.2=./Functions.c
+bmps.number=1
+bmps.0=./bitmap/ASCII.bmp
+patterns.number=0
+sdk=pobeye2

@@ -1,0 +1,11 @@
+# pobtools project
+pobtools.version=4
+target.name=./pad_write.hex
+sources.number=3
+sources.0=./Functions.c
+sources.1=./pad_write.c
+sources.2=./pad.h
+bmps.number=1
+bmps.0=./bitmap/ASCII.bmp
+patterns.number=0
+sdk=pobeye2

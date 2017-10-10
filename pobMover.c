@@ -3,6 +3,7 @@
 /////////////////////////////////////////////////
 #include <pob-eye.h>
 #include "pattern.h"	//dictionary of forms
+#include "bitmap.h"
 #include "pad.h"
 #include "EventManager\EventManager.h"
 #include "logging.h"
@@ -52,81 +53,92 @@ static int    s_PobEyeSymbol=0;
 static Int16  s_Nb_Identify=0;            //Number of form 
 static Form   s_ListOfForm[MAX_OF_FORM];  //array used to save the ID of the forms which are recognized
 static UInt8 *s_FrameFromCam;		       //Struct to get the RGB components 
+static UInt8 LCD_Buffer [LCD_WIDTH*LCD_HEIGHT*BITS] ;
+static GraphicBuffer ScreenBuffer ;
 	
 int main(void)
 {
+
+	
+	
 	InitPobeye2();    	  //init POB-EYE
 	InitUART0(115200);    //init UART for terminal serial I/O
-	EM_Init();            //init EventManager
 	InitI2C(I2C_100_KHZ); //init I2C Bus
+	InitLCD();
 	InitPobProto();       //init pob-proto
 	InitCameraPobeye2();
 	
 	// Get the pointer of the red,green and blue video buffer
 	s_FrameFromCam = GetRGBFrame();
 	
-	EM_StartPeriodicEvent(2,
-	                      1000,
-	                      PobSymbolAction);
+	// Init the Graphic buffer with 128 per 64, one pixel per bit and LCD_Buffer
+	InitGraphicBuffer( &ScreenBuffer, LCD_WIDTH,LCD_HEIGHT,ONE_BIT,LCD_Buffer);
 
-	EM_StartPeriodicEvent(0,     
-	                      2000,
-	                      ReadPobEye);      	                      
-	EM_StartPeriodicEvent(1,
-					  2000,
-					  PobSymbolDetect); 
+	// clear the graphic buffer
+	ClearGraphicBuffer(&ScreenBuffer);
+
 	
-	SendBufferToUART0((unsigned char *)"Starting Program\n",16);
+	SendBufferToUART0((unsigned char *)"Starting Program\n",17);
 	
 	while(1)
 	{
-		EM_Run();
+		//EM_Run();
+		//PobSymbolAction();
+		ReadPobEye();
+		PobSymbolDetect();
 	}
 	return 0;
 }
 
 void ReadPobEye()
-{
-	PrintToUart0( "Entered ReadPobEye\n");				
+{			
 
 	// Grab the RGB components
 	GrabRGBFrame();
 	
 	// Binary the RGB buffer
 	BinaryRGBFrame(s_FrameFromCam);
+	
 		
 }
 void PobSymbolDetect()
 {
 	// Try to identify the forms and make a list of it
-//	s_Nb_Identify=IdentifyForm(s_FrameFromCam,s_ListOfForm,pattern);
-	
-	PrintToUart0( "Entered PobSymbolDetect\n");				
+	s_Nb_Identify=IdentifyForm(s_FrameFromCam,s_ListOfForm,pattern);
+				
 										
-//	int i;
+	int i;
 	//parses Nb_Identify for the right symbol
-//	for(i=0; i<s_Nb_Identify; i++)
-//	{
-//		switch(s_ListOfForm[i].id)
-//		{
-//		//Cases that tries to get matched
-//		case IDP_CROSS:
-//			s_PobEyeSymbol = SYMBOL_CROSS;
-//			SendBufferToUART0((unsigned char *)"Got Symbol Cross",16);
-//			break;
-//		case IDP_TOWER:
-//			s_PobEyeSymbol = SYMBOL_TOWER;
-//			SendBufferToUART0((unsigned char *)"Got Symbol Tower",16);
-//			break;
-//		case IDP_TRIANGLE:
-//			s_PobEyeSymbol = SYMBOL_TRIANGLE;
-//			SendBufferToUART0((unsigned char *)"Got Symbol Triangle",19);
-//			break;
-//		default:
-//			SendBufferToUART0((unsigned char *)"Got Symbol None",15);
-//			break;
-//		}
-//	}
+	for(i=0; i<s_Nb_Identify; i++)
+	{
+		switch(s_ListOfForm[i].id)
+		{
+		case IDP_0_CROSS:
+				// Draw bitmap on the buffer and the LCD screen
+				DrawBitmap(0,0,IDB_CROSS,bitmap,&ScreenBuffer);
+				DrawLCD(&ScreenBuffer);
+			break;
+				
+	
+
+			case IDP_3_TOWER:
+				DrawBitmap(0,0,IDB_TOWER,bitmap,&ScreenBuffer);
+				DrawLCD(&ScreenBuffer);
+			break;
+			
+			case IDP_4_TREFLE:
+				DrawBitmap(0,0,IDB_BIGA,bitmap,&ScreenBuffer);
+				DrawLCD(&ScreenBuffer);
+			break;
+			
+			case IDP_5_TRIANGLE:
+				DrawBitmap(0,0,IDB_TRIANGLE,bitmap,&ScreenBuffer);
+				DrawLCD(&ScreenBuffer);
+			break;
+			default:
+			break;
+		}
+	}
 }
 
 void PobSymbolAction()

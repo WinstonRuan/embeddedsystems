@@ -27,7 +27,7 @@ void EM_StartPeriodicEvent(int id_,int period_,void(*fnc_)())
 	s_EventList[s_NumEvents].period = period_;
 	s_EventList[s_NumEvents].delay = -1;
 	s_EventList[s_NumEvents].fnc = fnc_;
-	s_EventList[s_NumEvents].lastExecutionTime = -1;
+	s_EventList[s_NumEvents].lastExecutionTime = GetClock();
 	s_NumEvents += 1;	
 }
 
@@ -66,24 +66,11 @@ void EM_Run()
 	int i;
 	for(i=0;i<s_NumEvents;i++)
 	{
-		if( s_EventList[i].period > -1 )
-		{
-			if( currentTime - s_EventList[i].lastExecutionTime > s_EventList[i].period 
-			|| s_EventList[i].lastExecutionTime == -1)
+			if( currentTime - s_EventList[i].lastExecutionTime > s_EventList[i].period )
 			{
 				s_EventList[i].fnc();
 				s_EventList[i].lastExecutionTime = currentTime;
 				currentTime = GetClock();
 			}
-		}
-		else
-		{
-			if( currentTime - s_EventList[i].lastExecutionTime > s_EventList[i].delay )
-			{
-				s_EventList[i].fnc();
-				s_EventList[i].lastExecutionTime = A_REALLY_BIG_NUMBER;  //won't execute again for a few hours, good enough
-				currentTime = GetClock();
-			}			
-		}
 	}	
 }

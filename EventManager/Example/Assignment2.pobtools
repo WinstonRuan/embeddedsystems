@@ -1,8 +1,10 @@
 # pobtools project
 pobtools.version=4
 target.name=./Assignment2.hex
-sources.number=1
+sources.number=3
 sources.0=./Assignment2.c
+sources.1=./EventManager.c
+sources.2=./EventManager.h
 bmps.number=0
 patterns.number=0
 sdk=pobeye2

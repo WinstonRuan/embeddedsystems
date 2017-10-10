@@ -2,7 +2,7 @@
 //Date:   10/09/17
 
 //Include
-#include "EventController.h"
+#include "EventManager.h"
 #include <pob-eye.h>
 #include <timer.h>
 
@@ -48,7 +48,8 @@ void EM_StopPeriodicEvent(int id_)
 	{
 		if(	s_EventList[i].id == id_ )
 		{
-			s_EventList[i] = s_EventList[s_NumEvents-1];
+			s_EventList[i].period = A_REALLY_BIG_NUMBER;
+			s_EventList[i].lastExecutionTime = 0; //edge case if execution time is -1 which always executes
 			s_NumEvents -= 1;	
 		}
 	}
@@ -77,8 +78,7 @@ void EM_Run()
 		}
 		else
 		{
-			if( currentTime - s_EventList[i].lastExecutionTime > s_EventList[i].delay 
-			|| s_EventList[i].lastExecutionTime == -1)
+			if( currentTime - s_EventList[i].lastExecutionTime > s_EventList[i].delay )
 			{
 				s_EventList[i].fnc();
 				s_EventList[i].lastExecutionTime = A_REALLY_BIG_NUMBER;  //won't execute again for a few hours, good enough

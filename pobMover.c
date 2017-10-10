@@ -10,13 +10,6 @@
 #include "pobMover.h"
 
 /////////////////////////////////////////////////
-//Macro Defines
-/////////////////////////////////////////////////
-#define READ_POB_EYE_PERIOD      2000
-#define POB_SYMBOL_DETECT_PERIOD 2000
-#define POB_SYMBOL_ACTION_PERIOD 100
-
-/////////////////////////////////////////////////
 //Structs and Enums
 /////////////////////////////////////////////////
 
@@ -58,9 +51,6 @@ static GraphicBuffer ScreenBuffer ;
 	
 int main(void)
 {
-
-	
-	
 	InitPobeye2();    	  //init POB-EYE
 	InitUART0(115200);    //init UART for terminal serial I/O
 	InitI2C(I2C_100_KHZ); //init I2C Bus
@@ -92,50 +82,66 @@ int main(void)
 
 void ReadPobEye()
 {			
-
 	// Grab the RGB components
 	GrabRGBFrame();
 	
 	// Binary the RGB buffer
 	BinaryRGBFrame(s_FrameFromCam);
-	
-		
 }
 void PobSymbolDetect()
 {
 	// Try to identify the forms and make a list of it
 	s_Nb_Identify=IdentifyForm(s_FrameFromCam,s_ListOfForm,pattern);
-				
-										
+												
 	int i;
 	//parses Nb_Identify for the right symbol
 	for(i=0; i<s_Nb_Identify; i++)
 	{
 		switch(s_ListOfForm[i].id)
 		{
+#ifdef IDP_0_CROSS
 		case IDP_0_CROSS:
-				// Draw bitmap on the buffer and the LCD screen
-				DrawBitmap(0,0,IDB_CROSS,bitmap,&ScreenBuffer);
-				DrawLCD(&ScreenBuffer);
+			// Draw bitmap on the buffer and the LCD screen
+			DrawBitmap(0,0,IDB_CROSS,bitmap,&ScreenBuffer);
+			DrawLCD(&ScreenBuffer);
 			break;
-				
-	
+#endif
 
-			case IDP_3_TOWER:
-				DrawBitmap(0,0,IDB_TOWER,bitmap,&ScreenBuffer);
-				DrawLCD(&ScreenBuffer);
+#ifdef IDP_2_KING			
+		case IDP_2_KING:
+			DrawBitmap(0,0,IDB_KING,bitmap,&ScreenBuffer);
+			DrawLCD(&ScreenBuffer);
 			break;
-			
-			case IDP_4_TREFLE:
-				DrawBitmap(0,0,IDB_BIGA,bitmap,&ScreenBuffer);
-				DrawLCD(&ScreenBuffer);
+#endif
+
+#ifdef IDP_3_TOWER						
+		case IDP_3_TOWER:
+			DrawBitmap(0,0,IDB_TOWER,bitmap,&ScreenBuffer);
+			DrawLCD(&ScreenBuffer);
 			break;
-			
-			case IDP_5_TRIANGLE:
-				DrawBitmap(0,0,IDB_TRIANGLE,bitmap,&ScreenBuffer);
-				DrawLCD(&ScreenBuffer);
+#endif
+
+#ifdef IDP_4_TREFLE			
+		case IDP_4_TREFLE:
+			DrawBitmap(0,0,IDB_TREFLE,bitmap,&ScreenBuffer);
+			DrawLCD(&ScreenBuffer);
 			break;
-			default:
+#endif
+
+#ifdef IDP_5_TRIANGLE			
+		case IDP_5_TRIANGLE:
+			DrawBitmap(0,0,IDB_TRIANGLE,bitmap,&ScreenBuffer);
+			DrawLCD(&ScreenBuffer);
+			break;
+#endif
+		break;
+#ifdef IDP_6_CIRCLE
+		case IDP_6_CIRCLE:
+			DrawBitmap(0,0,IDB_CIRCLE,bitmap,&ScreenBuffer);
+			DrawLCD(&ScreenBuffer);
+			break;
+#endif
+		default:
 			break;
 		}
 	}

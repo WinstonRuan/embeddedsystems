@@ -44,9 +44,9 @@ int main(void)
 	//Main loop for the timings and stuff
 	while(1)
 	{
-		ClockStart();
+		StartClock();
 		
-		int clockVal = ClockGet();
+		int clockVal = GetClock();
 
 		switch(clockVal)
 		{

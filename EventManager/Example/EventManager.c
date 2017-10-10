@@ -2,7 +2,7 @@
 //Date:   10/09/17
 
 //Include
-#include "EventController.h"
+#include "EventManager.h"
 #include <pob-eye.h>
 #include <timer.h>
 

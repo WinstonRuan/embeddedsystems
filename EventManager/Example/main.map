@@ -44,7 +44,7 @@ startup         0x00000000       0x48
  *(.startup)
  .startup       0x00000000       0x48 C:/Program Files (x86)/POB-Technology/POBTOOLS4/sdk/pobeye2\boot.o
 
-prog            0x00000048      0xc48
+prog            0x00000048      0xc50
  *(.text)
  .text          0x00000048       0xf8 ./Assignment2.o
                 0x0000009c                StopMovingLeft
@@ -52,70 +52,70 @@ prog            0x00000048      0xc48
                 0x00000064                RotateRight
                 0x00000048                MoveForward
                 0x000000c0                main
- .text          0x00000140      0x1d0 ./EventManager.o
+ .text          0x00000140      0x1d8 ./EventManager.o
                 0x000001bc                EM_StopPeriodicEvent
-                0x0000022c                EM_Run
-                0x00000300                EM_Init
+                0x00000234                EM_Run
+                0x00000308                EM_Init
                 0x00000140                EM_StartPeriodicEvent
                 0x00000180                EM_StartTimerEvent
- .text          0x00000310       0xb8 C:/Program Files (x86)/POB-Technology/POBTOOLS4/sdk/pobeye2\boot.o
-                0x00000310                start
-                0x000003ac                endless_loop
- .text          0x000003c8      0x110 C:/Program Files (x86)/POB-Technology/POBTOOLS4/sdk/pobeye2\libpob2.a(init.o)
-                0x000004c8                intr_swi
-                0x000003e4                InitPobeye2
-                0x000004c4                intr_undefined
-                0x000004d4                intr_fiq
-                0x000004d0                intr_dabort
-                0x000004cc                intr_pabort
- .text          0x000004d8      0x568 C:/Program Files (x86)/POB-Technology/POBTOOLS4/sdk/pobeye2\libpob2.a(uart0.o)
-                0x00000844                InitUART0
-                0x000005bc                SetUART0Configuration
-                0x000009dc                InitUART0Intr
-                0x000008bc                FlushUART0
-                0x000008f4                SendByteToUART0
-                0x000004d8                Uart0IrqHandler
-                0x000008d4                IsUART0Empty
-                0x00000954                GetByteFromUART0
-                0x000009a4                GetBufferFromUART0
-                0x00000978                GetByteFromUART0NoWait
-                0x0000091c                SendBufferToUART0
-                0x0000055c                GetByteFromUART0Intr
- .text          0x00000a40      0x1d8 C:/Program Files (x86)/POB-Technology/POBTOOLS4/sdk/pobeye2\libpob2.a(timer.o)
-                0x00000a40                WaitUs
-                0x00000a94                StartClock
-                0x00000b80                Timer0AttachFunction
-                0x00000b48                StopTimer0
-                0x00000afc                Timer0IrqHandler
-                0x00000b90                Timer0DetachFunction
-                0x00000ba4                InitTimer0
-                0x00000ad8                GetClock
-                0x00000b58                IsTimer0Overflow
-                0x00000ae8                StopClock
- .text          0x00000c18       0x3c C:/Program Files (x86)/POB-Technology/POBTOOLS4/sdk/pobeye2\libpob2.a(interrupt.o)
-                0x00000c38                restoreIRQ
-                0x00000c18                enableIRQ
-                0x00000c28                disableIRQ
+ .text          0x00000318       0xb8 C:/Program Files (x86)/POB-Technology/POBTOOLS4/sdk/pobeye2\boot.o
+                0x00000318                start
+                0x000003b4                endless_loop
+ .text          0x000003d0      0x110 C:/Program Files (x86)/POB-Technology/POBTOOLS4/sdk/pobeye2\libpob2.a(init.o)
+                0x000004d0                intr_swi
+                0x000003ec                InitPobeye2
+                0x000004cc                intr_undefined
+                0x000004dc                intr_fiq
+                0x000004d8                intr_dabort
+                0x000004d4                intr_pabort
+ .text          0x000004e0      0x568 C:/Program Files (x86)/POB-Technology/POBTOOLS4/sdk/pobeye2\libpob2.a(uart0.o)
+                0x0000084c                InitUART0
+                0x000005c4                SetUART0Configuration
+                0x000009e4                InitUART0Intr
+                0x000008c4                FlushUART0
+                0x000008fc                SendByteToUART0
+                0x000004e0                Uart0IrqHandler
+                0x000008dc                IsUART0Empty
+                0x0000095c                GetByteFromUART0
+                0x000009ac                GetBufferFromUART0
+                0x00000980                GetByteFromUART0NoWait
+                0x00000924                SendBufferToUART0
+                0x00000564                GetByteFromUART0Intr
+ .text          0x00000a48      0x1d8 C:/Program Files (x86)/POB-Technology/POBTOOLS4/sdk/pobeye2\libpob2.a(timer.o)
+                0x00000a48                WaitUs
+                0x00000a9c                StartClock
+                0x00000b88                Timer0AttachFunction
+                0x00000b50                StopTimer0
+                0x00000b04                Timer0IrqHandler
+                0x00000b98                Timer0DetachFunction
+                0x00000bac                InitTimer0
+                0x00000ae0                GetClock
+                0x00000b60                IsTimer0Overflow
+                0x00000af0                StopClock
+ .text          0x00000c20       0x3c C:/Program Files (x86)/POB-Technology/POBTOOLS4/sdk/pobeye2\libpob2.a(interrupt.o)
+                0x00000c40                restoreIRQ
+                0x00000c20                enableIRQ
+                0x00000c30                disableIRQ
  *(.rodata)
  *(.rodata*)
  .rodata.str1.4
-                0x00000c54       0x3c ./Assignment2.o
+                0x00000c5c       0x3c ./Assignment2.o
  *(.glue_7)
- .glue_7        0x00000c90        0x0 ./Assignment2.o
- .glue_7        0x00000c90        0x0 ./EventManager.o
- .glue_7        0x00000c90        0x0 C:/Program Files (x86)/POB-Technology/POBTOOLS4/sdk/pobeye2\boot.o
- .glue_7        0x00000c90        0x0 C:/Program Files (x86)/POB-Technology/POBTOOLS4/sdk/pobeye2\libpob2.a(init.o)
- .glue_7        0x00000c90        0x0 C:/Program Files (x86)/POB-Technology/POBTOOLS4/sdk/pobeye2\libpob2.a(uart0.o)
- .glue_7        0x00000c90        0x0 C:/Program Files (x86)/POB-Technology/POBTOOLS4/sdk/pobeye2\libpob2.a(timer.o)
- .glue_7        0x00000c90        0x0 C:/Program Files (x86)/POB-Technology/POBTOOLS4/sdk/pobeye2\libpob2.a(interrupt.o)
+ .glue_7        0x00000c98        0x0 ./Assignment2.o
+ .glue_7        0x00000c98        0x0 ./EventManager.o
+ .glue_7        0x00000c98        0x0 C:/Program Files (x86)/POB-Technology/POBTOOLS4/sdk/pobeye2\boot.o
+ .glue_7        0x00000c98        0x0 C:/Program Files (x86)/POB-Technology/POBTOOLS4/sdk/pobeye2\libpob2.a(init.o)
+ .glue_7        0x00000c98        0x0 C:/Program Files (x86)/POB-Technology/POBTOOLS4/sdk/pobeye2\libpob2.a(uart0.o)
+ .glue_7        0x00000c98        0x0 C:/Program Files (x86)/POB-Technology/POBTOOLS4/sdk/pobeye2\libpob2.a(timer.o)
+ .glue_7        0x00000c98        0x0 C:/Program Files (x86)/POB-Technology/POBTOOLS4/sdk/pobeye2\libpob2.a(interrupt.o)
  *(.glue_7t)
- .glue_7t       0x00000c90        0x0 ./Assignment2.o
- .glue_7t       0x00000c90        0x0 ./EventManager.o
- .glue_7t       0x00000c90        0x0 C:/Program Files (x86)/POB-Technology/POBTOOLS4/sdk/pobeye2\boot.o
- .glue_7t       0x00000c90        0x0 C:/Program Files (x86)/POB-Technology/POBTOOLS4/sdk/pobeye2\libpob2.a(init.o)
- .glue_7t       0x00000c90        0x0 C:/Program Files (x86)/POB-Technology/POBTOOLS4/sdk/pobeye2\libpob2.a(uart0.o)
- .glue_7t       0x00000c90        0x0 C:/Program Files (x86)/POB-Technology/POBTOOLS4/sdk/pobeye2\libpob2.a(timer.o)
- .glue_7t       0x00000c90        0x0 C:/Program Files (x86)/POB-Technology/POBTOOLS4/sdk/pobeye2\libpob2.a(interrupt.o)
+ .glue_7t       0x00000c98        0x0 ./Assignment2.o
+ .glue_7t       0x00000c98        0x0 ./EventManager.o
+ .glue_7t       0x00000c98        0x0 C:/Program Files (x86)/POB-Technology/POBTOOLS4/sdk/pobeye2\boot.o
+ .glue_7t       0x00000c98        0x0 C:/Program Files (x86)/POB-Technology/POBTOOLS4/sdk/pobeye2\libpob2.a(init.o)
+ .glue_7t       0x00000c98        0x0 C:/Program Files (x86)/POB-Technology/POBTOOLS4/sdk/pobeye2\libpob2.a(uart0.o)
+ .glue_7t       0x00000c98        0x0 C:/Program Files (x86)/POB-Technology/POBTOOLS4/sdk/pobeye2\libpob2.a(timer.o)
+ .glue_7t       0x00000c98        0x0 C:/Program Files (x86)/POB-Technology/POBTOOLS4/sdk/pobeye2\libpob2.a(interrupt.o)
 
 .vfp11_veneer   0x00000000        0x0
  .vfp11_veneer  0x00000000        0x0 ./Assignment2.o
@@ -139,9 +139,9 @@ prog            0x00000048      0xc48
  *(.eh_frame)
                 0x00000000                __end_of_text__ = .
 
-.data           0x40000000        0x0 load address 0x00000c90
+.data           0x40000000        0x0 load address 0x00000c98
                 0x40000000                __data_beg__ = .
-                0x00000c90                __data_beg_src__ = __end_of_text__
+                0x00000c98                __data_beg_src__ = __end_of_text__
  *(.data)
  .data          0x40000000        0x0 ./Assignment2.o
  .data          0x40000000        0x0 ./EventManager.o

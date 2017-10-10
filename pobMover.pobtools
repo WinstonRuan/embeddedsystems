@@ -1,10 +1,14 @@
 # pobtools project
 pobtools.version=4
 target.name=./pobMover.hex
-sources.number=3
+sources.number=7
 sources.0=./pobMover.c
 sources.1=./pattern.h
 sources.2=./pobMover.h
+sources.3=./EventManager/EventManager.c
+sources.4=./EventManager/EventManager.h
+sources.5=./logging.c
+sources.6=./logging.h
 bmps.number=0
 patterns.number=4
 patterns.0=./patterns/circle.bmp

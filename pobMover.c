@@ -2,6 +2,7 @@
 //Include
 /////////////////////////////////////////////////
 #include <pob-eye.h>
+#include <timer.h>
 #include "pattern.h"	//dictionary of forms
 #include "bitmap.h"
 #include "pad.h"
@@ -134,7 +135,13 @@ void PobSymbolDetect()
 		case IDP_15_MINESWEEPER:
 			DrawBitmap(0,0,IDB_TRIANGLE,bitmap,&ScreenBuffer);
 			DrawLCD(&ScreenBuffer);
+<<<<<<< HEAD
 			s_PobEyeSymbol = SYMBOL_FORWARD;
+=======
+			MoveBot(RUN);
+			WaitUs(500000);
+			MoveBot(STOP);
+>>>>>>> e0d31768cd9d5c71d36b52de07c87923ec8cd141
 			break;
 #endif
 
@@ -152,9 +159,9 @@ void PobSymbolDetect()
 			break;
 #endif
 
-#ifdef IDP_4_TREFLE			
-		case IDP_4_TREFLE:
-			DrawBitmap(0,0,IDB_TREFLE,bitmap,&ScreenBuffer);
+#ifdef IDP_7_TRIANGLE45		
+		case IDP_7_TRIANGLE45:
+			DrawBitmap(0,0,IDB_TRIANGLE,bitmap,&ScreenBuffer);
 			DrawLCD(&ScreenBuffer);
 			break;
 #endif
@@ -170,7 +177,13 @@ void PobSymbolDetect()
 		case IDP_5_TRIANGLE:
 			DrawBitmap(0,0,IDB_TRIANGLE,bitmap,&ScreenBuffer);
 			DrawLCD(&ScreenBuffer);
+<<<<<<< HEAD
 			s_PobEyeSymbol = SYMBOL_FORWARD;
+=======
+			MoveBot(LEFT);
+			WaitUs(500000);
+			MoveBot(STOP);
+>>>>>>> e0d31768cd9d5c71d36b52de07c87923ec8cd141
 			break;
 #endif
 
@@ -202,13 +215,24 @@ void PobSymbolDetect()
 		case IDP_6_CIRCLE:
 			DrawBitmap(0,0,IDB_TRIANGLE,bitmap,&ScreenBuffer);
 			DrawLCD(&ScreenBuffer);
+<<<<<<< HEAD
 			s_PobEyeSymbol = SYMBOL_FORWARD;
+=======
+			MoveBot(RIGHT);
+			WaitUs(1000000);
+			MoveBot(STOP);
+>>>>>>> e0d31768cd9d5c71d36b52de07c87923ec8cd141
 			break;
 #endif
 		default:
 			break;
 		}
 	}
+	if (s_Nb_Identify == 0)
+		{
+		DrawBitmap(0,0,IDB_NOFORMS,bitmap,&ScreenBuffer);
+		DrawLCD(&ScreenBuffer);
+		}
 }
 
 void PobSymbolAction()
@@ -247,11 +271,10 @@ void InitPobProto (void)
 	// struct to set the pob-proto
 	PobProto	Proto; 
 
-	//to get the position of the analogic joystick, you have to set the PORTA as analogic input
-	Proto.porta=ALL_PORTA_AS_ANA;	
 
 	//all pin of PORTC are configured to manage servomotors
 	Proto.portc=RC7_AS_SERVO	| RC6_AS_SERVO |RC3_AS_SERVO |RC2_AS_SERVO|RC1_AS_SERVO |RC0_AS_SERVO;	
+	//SetServoMotor(RC0_AS_SERVO, 100);
 
 	//RD0 RD1 RD2 RD3 are configured as digitals output to gear DC motor, RD4 RD5 RD6 RD7 are configured as digitals input
 	Proto.portd=RD7_AS_DI	| RD6_AS_DI	|RD5_AS_DI |RD4_AS_DI|RD3_AS_DO	|RD2_AS_DO	|RD1_AS_DO	|RD0_AS_DO;		

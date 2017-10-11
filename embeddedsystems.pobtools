@@ -10,8 +10,21 @@ sources.4=./bitmap.h
 bmps.number=2
 bmps.0=./bitmap/triangle.bmp
 bmps.1=./bitmap/cross.bmp
+<<<<<<< HEAD
 patterns.number=2
 patterns.0=./pattern/5_triangle.bmp
 patterns.1=./pattern/0_cross.bmp
+=======
+bmps.2=./bitmap/king.bmp
+bmps.3=./bitmap/noforms.bmp
+bmps.4=./bitmap/tower.bmp
+bmps.5=./bitmap/triangle.bmp
+bmps.6=./bitmap/circle.bmp
+patterns.number=4
+patterns.0=./pattern/5_triangle.bmp
+patterns.1=./pattern/0_cross.bmp
+patterns.2=./pattern/6_circle.bmp
+patterns.3=./pattern/7_triangle45.bmp
+>>>>>>> e0d31768cd9d5c71d36b52de07c87923ec8cd141
 sdk=pobeye2
 lang=C

@@ -8,16 +8,16 @@
 #include "EventManager\EventManager.h"
 #include "logging.h"
 #include "pobMover.h"
-
+#include "timer.h"
 /////////////////////////////////////////////////
 //Structs and Enums
 /////////////////////////////////////////////////
 
 typedef enum   //Add new symbols here
 {
-	SYMBOL_CROSS,
-	SYMBOL_TOWER,
-	SYMBOL_TRIANGLE,
+	SYMBOL_LEFT,
+	SYMBOL_RIGHT,
+	SYMBOL_FORWARD,
 	NUM_SYMBOLS	
 }
 SYMBOL_TYPE_T;
@@ -57,7 +57,8 @@ int main(void)
 	InitLCD();
 	InitPobProto();       //init pob-proto
 	InitCameraPobeye2();
-	
+	SwitchOnAllServo();
+
 	// Get the pointer of the red,green and blue video buffer
 	s_FrameFromCam = GetRGBFrame();
 	
@@ -67,15 +68,16 @@ int main(void)
 	// clear the graphic buffer
 	ClearGraphicBuffer(&ScreenBuffer);
 
-	
+				SetServoMotor(0, 0);
+
 	SendBufferToUART0((unsigned char *)"Starting Program\n",17);
-	
+	StartClock();
 	while(1)
 	{
 		//EM_Run();
-		//PobSymbolAction();
 		ReadPobEye();
 		PobSymbolDetect();
+		PobSymbolAction();
 	}
 	return 0;
 }
@@ -97,13 +99,42 @@ void PobSymbolDetect()
 	//parses Nb_Identify for the right symbol
 	for(i=0; i<s_Nb_Identify; i++)
 	{
+		
 		switch(s_ListOfForm[i].id)
 		{
 #ifdef IDP_0_CROSS
+#ifdef IDP_12_CROSSTILT
 		case IDP_0_CROSS:
+		case IDP_12_CROSSTILT:
 			// Draw bitmap on the buffer and the LCD screen
-			DrawBitmap(0,0,IDB_CROSS,bitmap,&ScreenBuffer);
+			DrawBitmap(0,0,IDB_LEFT,bitmap,&ScreenBuffer);
 			DrawLCD(&ScreenBuffer);
+			s_PobEyeSymbol = SYMBOL_LEFT;
+			break;
+#endif
+#endif
+
+#ifdef IDP_13_ASTRIX			
+		case IDP_13_ASTRIX:
+			DrawBitmap(0,0,IDB_LEFT,bitmap,&ScreenBuffer);
+			DrawLCD(&ScreenBuffer);
+			s_PobEyeSymbol = SYMBOL_LEFT;
+			break;
+#endif
+
+#ifdef IDP_14_STAR			
+		case IDP_14_STAR:
+			DrawBitmap(0,0,IDB_RIGHT,bitmap,&ScreenBuffer);
+			DrawLCD(&ScreenBuffer);
+			s_PobEyeSymbol = SYMBOL_RIGHT;
+			break;
+#endif
+
+#ifdef IDP_15_MINESWEEPER			
+		case IDP_15_MINESWEEPER:
+			DrawBitmap(0,0,IDB_TRIANGLE,bitmap,&ScreenBuffer);
+			DrawLCD(&ScreenBuffer);
+			s_PobEyeSymbol = SYMBOL_FORWARD;
 			break;
 #endif
 
@@ -128,17 +159,50 @@ void PobSymbolDetect()
 			break;
 #endif
 
+#ifdef IDP_10_NEWLEFT			
+		case IDP_10_NEWLEFT:
+			DrawBitmap(0,0,IDB_LEFT,bitmap,&ScreenBuffer);
+			DrawLCD(&ScreenBuffer);
+			break;
+#endif
+
 #ifdef IDP_5_TRIANGLE			
 		case IDP_5_TRIANGLE:
 			DrawBitmap(0,0,IDB_TRIANGLE,bitmap,&ScreenBuffer);
 			DrawLCD(&ScreenBuffer);
+			s_PobEyeSymbol = SYMBOL_FORWARD;
 			break;
 #endif
-		break;
+
+#ifdef IDP_8_TRIANGLERIGHT			
+		case IDP_8_TRIANGLERIGHT:
+			DrawBitmap(0,0,IDB_RIGHT,bitmap,&ScreenBuffer);
+			DrawLCD(&ScreenBuffer);
+			s_PobEyeSymbol = SYMBOL_RIGHT;
+			break;
+
+#endif
+
+#ifdef IDP_9_TRIANGLELEFT			
+		case IDP_9_TRIANGLELEFT:
+			DrawBitmap(0,0,IDB_LEFT,bitmap,&ScreenBuffer);
+			DrawLCD(&ScreenBuffer);
+			break;
+#endif
+
+#ifdef IDP_11_DIAMOND
+		case IDP_11_DIAMOND:
+			DrawBitmap(0,0,IDB_TRIANGLE,bitmap,&ScreenBuffer);
+			DrawLCD(&ScreenBuffer);
+			s_PobEyeSymbol = SYMBOL_LEFT;			
+			break;
+#endif
+
 #ifdef IDP_6_CIRCLE
 		case IDP_6_CIRCLE:
-			DrawBitmap(0,0,IDB_CIRCLE,bitmap,&ScreenBuffer);
+			DrawBitmap(0,0,IDB_TRIANGLE,bitmap,&ScreenBuffer);
 			DrawLCD(&ScreenBuffer);
+			s_PobEyeSymbol = SYMBOL_FORWARD;
 			break;
 #endif
 		default:
@@ -149,22 +213,27 @@ void PobSymbolDetect()
 
 void PobSymbolAction()
 {
-	PrintToUart0( "Entered PobSymbolAction\n");				
-
-//	switch(s_PobEyeSymbol)
-//	{
-//		case SYMBOL_CROSS:
-//			MoveBot(RUN);
-//			break;
-//		case SYMBOL_TOWER:
-//			MoveBot(LEFT);
-//			break;			
-//		case SYMBOL_TRIANGLE:
-//			MoveBot(RIGHT);
-//			break;
-//		default:
-//			break;					
-//	}
+	static int previousSymbol = 0;
+	previousSymbol = s_PobEyeSymbol;
+	
+	if(previousSymbol != s_PobEyeSymbol)
+	{
+		MoveBot(STOP);
+	}		
+	switch(s_PobEyeSymbol)
+	{
+		case SYMBOL_FORWARD:
+			MoveBot(RUN);
+			break;
+		case SYMBOL_LEFT:
+			MoveBot(LEFT);
+			break;			
+		case SYMBOL_RIGHT:
+			MoveBot(RIGHT);
+			break;
+		default:
+			break;					
+	}
 }
 
 void MoveBot(UInt8 Way)

@@ -71,14 +71,14 @@ int main(void)
 
 				SetServoMotor(0, 0);
 
-	SendBufferToUART0((unsigned char *)"Starting Program\n",17);
-	StartClock();
+	//SendBufferToUART0((unsigned char *)"Starting Program\n",17);
+	//StartClock();
 	while(1)
 	{
 		//EM_Run();
 		ReadPobEye();
 		PobSymbolDetect();
-		PobSymbolAction();
+		//PobSymbolAction();
 	}
 	return 0;
 }
@@ -110,9 +110,11 @@ void PobSymbolDetect()
 		case IDP_0_CROSS:
 //		case IDP_12_CROSSTILT:
 			// Draw bitmap on the buffer and the LCD screen
-			DrawBitmap(0,0,IDB_CROSS,bitmap,&ScreenBuffer);
-			DrawLCD(&ScreenBuffer);
-			s_PobEyeSymbol = SYMBOL_FORWARD;
+			//DrawBitmap(0,0,IDB_CROSS,bitmap,&ScreenBuffer);
+			//DrawLCD(&ScreenBuffer);
+			//s_PobEyeSymbol = SYMBOL_FORWARD;
+			MoveBot(RUN);
+			WaitUs(50000);
 			break;
 //#endif
 #endif
@@ -155,11 +157,13 @@ void PobSymbolDetect()
 
 #ifdef IDP_2_KING			
 		case IDP_2_KING:
-			DrawBitmap(0,0,IDB_KING,bitmap,&ScreenBuffer);
+			DrawBitmap(0,0,IDB_TRIANGLE,bitmap,&ScreenBuffer);
 			DrawLCD(&ScreenBuffer);
 			MoveBot(RIGHT);
-			WaitUs(2400000);		
-			MoveBot(STOP);
+			WaitUs(1300000);		
+			MoveBot(STOP); 
+			WaitUs(2000000);
+			s_Nb_Identify = 0;
 			break;
 #endif
 
@@ -186,12 +190,14 @@ void PobSymbolDetect()
 
 #ifdef IDP_5_TRIANGLE			
 		case IDP_5_TRIANGLE:
-			DrawBitmap(0,0,IDB_TRIANGLE,bitmap,&ScreenBuffer);
-			DrawLCD(&ScreenBuffer);
+			//DrawBitmap(0,0,IDB_TRIANGLE,bitmap,&ScreenBuffer);
+			//DrawLCD(&ScreenBuffer);
 			//s_PobEyeSymbol = SYMBOL_FORWARD;
 			MoveBot(LEFT);
-			WaitUs(2400000);		
+			WaitUs(1300000);		
 			MoveBot(STOP);
+			WaitUs(2000000);
+			s_Nb_Identify = 0;
 			break;
 #endif
 
@@ -241,42 +247,44 @@ void PobSymbolDetect()
 			DrawBitmap(0,0,IDB_CIRCLE,bitmap,&ScreenBuffer);
 			DrawLCD(&ScreenBuffer);
 			//s_PobEyeSymbol = SYMBOL_LEFT;
-			MoveBot(LEFT);
-			WaitUs(1500000);		
-			MoveBot(STOP);
 			break;
 #endif
 		default:
 			break;
 		}
 	}
-
-}
-
-void PobSymbolAction()
-{
-	static int previousSymbol = 0;
-	previousSymbol = s_PobEyeSymbol;
-	
-	if(previousSymbol != s_PobEyeSymbol)
-	{
+		if (s_Nb_Identify == 0)
+		{
+		//DrawBitmap(0,0,IDB_NOFORMS,bitmap,&ScreenBuffer);
+		//DrawLCD(&ScreenBuffer);
 		MoveBot(STOP);
-	}		
-	switch(s_PobEyeSymbol)
-	{
-		case SYMBOL_FORWARD:
-			MoveBot(RUN);
-			break;
-		case SYMBOL_LEFT:
-			MoveBot(LEFT);
-			break;			
-		case SYMBOL_RIGHT:
-			MoveBot(RIGHT);
-			break;
-		default:
-			break;					
-	}
+		}
 }
+
+//void PobSymbolAction()
+//{
+//	static int previousSymbol = 0;
+//	previousSymbol = s_PobEyeSymbol;
+//	
+//	if(previousSymbol != s_PobEyeSymbol)
+//	{
+//		MoveBot(STOP);
+//	}		
+//	switch(s_PobEyeSymbol)
+//	{
+//		case SYMBOL_FORWARD:
+//			MoveBot(RUN);
+//			break;
+//		case SYMBOL_LEFT:
+//			MoveBot(LEFT);
+//			break;			
+//		case SYMBOL_RIGHT:
+//			MoveBot(RIGHT);
+//			break;
+//		default:
+//			break;					
+//	}
+//}
 
 void MoveBot(UInt8 Way)
 {

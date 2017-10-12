@@ -88,6 +88,8 @@ void ReadPobEye()
 	// Grab the RGB components
 	GrabRGBFrame();
 	
+	
+	
 	// Binary the RGB buffer
 	BinaryRGBFrame(s_FrameFromCam);
 }
@@ -104,28 +106,37 @@ void PobSymbolDetect()
 		switch(s_ListOfForm[i].id)
 		{
 #ifdef IDP_0_CROSS
-#ifdef IDP_12_CROSSTILT
+//#ifdef IDP_12_CROSSTILT
 		case IDP_0_CROSS:
-		case IDP_12_CROSSTILT:
+//		case IDP_12_CROSSTILT:
 			// Draw bitmap on the buffer and the LCD screen
-			DrawBitmap(0,0,IDB_LEFT,bitmap,&ScreenBuffer);
+			DrawBitmap(0,0,IDB_CROSS,bitmap,&ScreenBuffer);
 			DrawLCD(&ScreenBuffer);
-			s_PobEyeSymbol = SYMBOL_LEFT;
+			s_PobEyeSymbol = SYMBOL_FORWARD;
 			break;
+//#endif
 #endif
-#endif
+
 
 #ifdef IDP_13_ASTRIX			
 		case IDP_13_ASTRIX:
 			DrawBitmap(0,0,IDB_LEFT,bitmap,&ScreenBuffer);
 			DrawLCD(&ScreenBuffer);
-			s_PobEyeSymbol = SYMBOL_LEFT;
+			//s_PobEyeSymbol = SYMBOL_LEFT;
+			break;
+#endif
+			
+#ifdef  IDP_16_WEED
+		case IDP_16_WEED:
+			DrawBitmap(0,0,IDB_RIGHT,bitmap,&ScreenBuffer);
+			DrawLCD(&ScreenBuffer);
+			s_PobEyeSymbol = SYMBOL_RIGHT;
 			break;
 #endif
 
 #ifdef IDP_14_STAR			
 		case IDP_14_STAR:
-			DrawBitmap(0,0,IDB_RIGHT,bitmap,&ScreenBuffer);
+			DrawBitmap(0,0,IDB_CIRCLE,bitmap,&ScreenBuffer);
 			DrawLCD(&ScreenBuffer);
 			s_PobEyeSymbol = SYMBOL_RIGHT;
 			break;
@@ -135,13 +146,10 @@ void PobSymbolDetect()
 		case IDP_15_MINESWEEPER:
 			DrawBitmap(0,0,IDB_TRIANGLE,bitmap,&ScreenBuffer);
 			DrawLCD(&ScreenBuffer);
-<<<<<<< HEAD
-			s_PobEyeSymbol = SYMBOL_FORWARD;
-=======
-			MoveBot(RUN);
-			WaitUs(500000);
+			//s_PobEyeSymbol = SYMBOL_FORWARD;
+			MoveBot(RIGHT);
+			WaitUs(1950000);		
 			MoveBot(STOP);
->>>>>>> e0d31768cd9d5c71d36b52de07c87923ec8cd141
 			break;
 #endif
 
@@ -149,6 +157,9 @@ void PobSymbolDetect()
 		case IDP_2_KING:
 			DrawBitmap(0,0,IDB_KING,bitmap,&ScreenBuffer);
 			DrawLCD(&ScreenBuffer);
+			MoveBot(RIGHT);
+			WaitUs(2400000);		
+			MoveBot(STOP);
 			break;
 #endif
 
@@ -177,13 +188,10 @@ void PobSymbolDetect()
 		case IDP_5_TRIANGLE:
 			DrawBitmap(0,0,IDB_TRIANGLE,bitmap,&ScreenBuffer);
 			DrawLCD(&ScreenBuffer);
-<<<<<<< HEAD
-			s_PobEyeSymbol = SYMBOL_FORWARD;
-=======
+			//s_PobEyeSymbol = SYMBOL_FORWARD;
 			MoveBot(LEFT);
-			WaitUs(500000);
+			WaitUs(2400000);		
 			MoveBot(STOP);
->>>>>>> e0d31768cd9d5c71d36b52de07c87923ec8cd141
 			break;
 #endif
 
@@ -205,34 +213,44 @@ void PobSymbolDetect()
 
 #ifdef IDP_11_DIAMOND
 		case IDP_11_DIAMOND:
-			DrawBitmap(0,0,IDB_TRIANGLE,bitmap,&ScreenBuffer);
+			DrawBitmap(0,0,IDB_CIRCLE,bitmap,&ScreenBuffer);
 			DrawLCD(&ScreenBuffer);
-			s_PobEyeSymbol = SYMBOL_LEFT;			
+			//s_PobEyeSymbol = SYMBOL_LEFT;			
+			break;
+#endif
+
+#ifdef IDP_4_TREFLE
+		case IDP_4_TREFLE:
+			DrawBitmap(0,0,IDB_KING,bitmap,&ScreenBuffer);
+			DrawLCD(&ScreenBuffer);
+			MoveBot(LEFT);
+			WaitUs(1500000);		
+			MoveBot(STOP);
+			break;
+#endif
+
+#ifdef IDP_1_BIGA
+		case IDP_1_BIGA:
+			DrawBitmap(0,0,IDB_NOFORMS,bitmap,&ScreenBuffer);
+			DrawLCD(&ScreenBuffer);
 			break;
 #endif
 
 #ifdef IDP_6_CIRCLE
 		case IDP_6_CIRCLE:
-			DrawBitmap(0,0,IDB_TRIANGLE,bitmap,&ScreenBuffer);
+			DrawBitmap(0,0,IDB_CIRCLE,bitmap,&ScreenBuffer);
 			DrawLCD(&ScreenBuffer);
-<<<<<<< HEAD
-			s_PobEyeSymbol = SYMBOL_FORWARD;
-=======
-			MoveBot(RIGHT);
-			WaitUs(1000000);
+			//s_PobEyeSymbol = SYMBOL_LEFT;
+			MoveBot(LEFT);
+			WaitUs(1500000);		
 			MoveBot(STOP);
->>>>>>> e0d31768cd9d5c71d36b52de07c87923ec8cd141
 			break;
 #endif
 		default:
 			break;
 		}
 	}
-	if (s_Nb_Identify == 0)
-		{
-		DrawBitmap(0,0,IDB_NOFORMS,bitmap,&ScreenBuffer);
-		DrawLCD(&ScreenBuffer);
-		}
+
 }
 
 void PobSymbolAction()

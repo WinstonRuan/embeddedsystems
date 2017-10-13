@@ -1,19 +1,14 @@
 # pobtools project
 pobtools.version=4
 target.name=./embeddedsystems.hex
-sources.number=5
+sources.number=4
 sources.0=./pobMover.c
 sources.1=./pobMover.h
 sources.2=./pattern.h
 sources.3=./pad.h
-sources.4=./bitmap.h
-bmps.number=6
-bmps.0=./bitmap/triangle.bmp
-bmps.1=./bitmap/cross.bmp
-bmps.2=./bitmap/noforms.bmp
-bmps.3=./bitmap/king.bmp
-bmps.4=./bitmap/circle.bmp
-bmps.5=./bitmap/Left.bmp
+bmps.number=2
+bmps.0=./bitmap/king.bmp
+bmps.1=./bitmap/triangle.bmp
 patterns.number=3
 patterns.0=./pattern/5_triangle.bmp
 patterns.1=./pattern/0_cross.bmp
